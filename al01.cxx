@@ -11,7 +11,7 @@ void al01(TString inputfilename) {
   for (Int_t ientry = 0; ientry < N; ientry++){
     tree->GetEntry(ientry);
     Hist01->Fill(VadcHigh[44]);
-    cout<<ientry<<"  "<<VadcHigh[44]<<endl;
+    //cout<<ientry<<"  "<<VadcHigh[44]<<endl;
   }
   Hist01->Draw();
 

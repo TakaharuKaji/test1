@@ -8,6 +8,6 @@ void macro_skm(TString inputfilename) {
   const Int_t N = tree->GetEntries();
   for (Int_t ientry = 0; ientry < N; ientry++){
     tree->GetEntry(ientry);
-    cout<<ientry<<"  "<<VadcHigh[44]<<endl;
+    //cout<<ientry<<"  "<<VadcHigh[44]<<endl;
   }
 }
