@@ -31,4 +31,9 @@ void al01(){
     TString filename = Form("data/ta0%d.root",i);
     v.at(i-1) = GetPara(filename);
   }
+
+  for (int i = 0; i < v.size(); i++)
+  {
+      std::cout << v.at(i) << "\n";
+  }
 }
