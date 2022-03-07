@@ -18,9 +18,10 @@ for i in range (1,n):
     os.system("increaseHV HV")
 
     os.system("read N sokutei_str(i)" ) #測定
+    os.system("quit") #controllerから抜ける
+    
     os.system("cd data") #contorollerからdataに移動
     os.system("mv sokutei_str(i).root dir1") #rootファイルを保存ディレクトリに移動
-
-    os.system("cd ..") #controllerから抜ける
+    os.system("cd ..") #dataからcontorollerに移動
     os.system("./stage.py -ml m") #移動
 #終了
