@@ -1,5 +1,5 @@
 Double_t GetPara(TString inputfilename) {
-  TFile *file = new TFile(inputfilename, "read");
+  TFile *file = new TFile("data/"+inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
   if (tree==nullptr) {
     return 0;
@@ -24,7 +24,7 @@ Double_t GetPara(TString inputfilename) {
   TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
   Hist01->Draw();
   inputfilename.ReplaceAll("root","png");
-  TString figname = Form("%s",inputfilename.Data());
+  TString figname = Form("data/fig/%s",inputfilename.Data());
   cl -> SaveAs(figname);
   return p1;
 }
@@ -52,7 +52,7 @@ void al01(){
   vector<Double_t> x(N);
 
   for (Int_t i = 1; i <= N; i++){
-    TString filename = Form("data/sokuteitest%d.root",i+23);
+    TString filename = Form("sokuteitest%d.root",i+23);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
     Energy.at(i-1) = EnergyPhoton(v.at(i-1));
