@@ -48,7 +48,7 @@ void al01(){
     TString filename = Form("data/ta0%d.root",i);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
-    Energy.at(i-1) = EnergyPhoton(v.at(i-1));
+    Energy.at(i-1) = EnergyPhoton(Num.at(i-1));
   }
 
   for (int i = 0; i < v.size(); i++){
