@@ -1,7 +1,9 @@
 Double_t GetPara(TString inputfilename) {
-  TFile *file = new TFile(inputfilename, "read");
+  TFile *file = new TFile("data/"+inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
-
+  if (tree==nullptr) {
+    return 0;
+  }
   int VadcHigh[64];
   tree->SetBranchAddress("VadcHigh", &VadcHigh);
 
@@ -16,10 +18,14 @@ Double_t GetPara(TString inputfilename) {
 
   //TF1 *f1 = new TF1("f1", "[0] + [1] * x",min, max);
   TF1 *f = new TF1("name","gaus",0,3000);
-  Hist01->Fit("name","","",800,850);
+  Hist01->Fit("name","","",850,1500);
   Double_t p1 = f->GetParameter(1);
   cout<<p1<<endl;
+  TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
   Hist01->Draw();
+  inputfilename.ReplaceAll("root","png");
+  TString figname = Form("data/fig/%s",inputfilename.Data());
+  cl -> SaveAs(figname);
   return p1;
 }
 
@@ -38,18 +44,25 @@ Double_t EnergyPhoton(Int_t NumP){
 }
 
 void al01(){
-  gROOT->SetBatch(1);
-  Int_t N = 9;
+  //gROOT->SetBatch(1);
+  Int_t N =12 ;
   vector<Double_t> v(N);
   vector<Double_t> Num(N);
   vector<Double_t> Energy(N);
+  vector<Double_t> x(N);
 
   for (Int_t i = 1; i <= N; i++){
-    TString filename = Form("data/ta0%d.root",i);
+    TString filename = Form("sokuteitest%d.root",i+23);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
-    Energy.at(i-1) = EnergyPhoton(Num.at(i-1));
+    Energy.at(i-1) = EnergyPhoton(v.at(i-1));
+    x.at(i-1) = 58.16 +(i-1)*2;
+
   }
+
+  TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
+  tgl->SetMarkerStyle(8);
+  tgl->Draw("AP");
 
   for (int i = 0; i < v.size(); i++){
       std::cout << "Vadc:"<< v.at(i) << ", Num:" << Num.at(i) << ", Energy:" << Energy.at(i) << "\n";
