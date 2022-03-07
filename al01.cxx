@@ -1,7 +1,9 @@
 Double_t GetPara(TString inputfilename) {
   TFile *file = new TFile(inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
-
+  if (tree==nullptr) {
+    return 0;
+  }
   int VadcHigh[64];
   tree->SetBranchAddress("VadcHigh", &VadcHigh);
 
@@ -16,10 +18,14 @@ Double_t GetPara(TString inputfilename) {
 
   //TF1 *f1 = new TF1("f1", "[0] + [1] * x",min, max);
   TF1 *f = new TF1("name","gaus",0,3000);
-  Hist01->Fit("name","","",800,850);
+  Hist01->Fit("name","","",850,1500);
   Double_t p1 = f->GetParameter(1);
   cout<<p1<<endl;
+  TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
   Hist01->Draw();
+  inputfilename.ReplaceAll("root","png");
+  TString figname = Form("%s",inputfilename.Data());
+  cl -> SaveAs(figname);
   return p1;
 }
 
@@ -49,13 +55,9 @@ void al01(){
     TString filename = Form("data/sokuteitest%d.root",i+23);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
-<<<<<<< HEAD
     Energy.at(i-1) = EnergyPhoton(v.at(i-1));
-    x.at(i-1) = i;
+    x.at(i-1) = 58.16 +(i-1)*2;
 
-=======
-    Energy.at(i-1) = EnergyPhoton(Num.at(i-1));
->>>>>>> 105275303e66d98d5f2e45fee6bf58eaf0c4e2e1
   }
 
   TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
