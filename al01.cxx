@@ -23,14 +23,14 @@ Double_t GetPara(TString inputfilename) {
   return p1;
 }
 
-Double_t NumPhoton(adc){
+Double_t NumPhoton(Double_t adc){
   Double_t a = 0.0129; //エクセルで計算
   Double_t b = -10.57; //エクセルで計算
   Int_t NumP = (a * adc) + b; //adcの値を光子の数に変換
   return NumP;
 }
 
-Double_t EnergyPhoton(NumP){
+Double_t EnergyPhoton(Int_t NumP){
   Double_t h = 6.626e-34; //プランク定数
   Double_t nu = 600.0e+12; //使用した緑色LEDの振動数
   Double_t Energy = h * nu * NumP; //光子一つのエネルギーに個数を乗じる
@@ -41,13 +41,17 @@ void al01(){
   gROOT->SetBatch(1);
   Int_t N = 9;
   vector<Double_t> v(N);
+  vector<Double_t> Num(N);
+  vector<Double_t> Energy(N);
+
   for (Int_t i = 1; i <= N; i++){
     TString filename = Form("data/ta0%d.root",i);
     v.at(i-1) = GetPara(filename);
+    Num.at(i-1) = NumPhoton(v.at(i-1));
+    Energy.at(i-1) = EnergyPhoton(v.at(i-1));
   }
 
-  for (int i = 0; i < v.size(); i++)
-  {
-      std::cout << v.at(i) << "\n";
+  for (int i = 0; i < v.size(); i++){
+      std::cout << "Vadc:"<< v.at(i) << ", Num:" << Num.at(i) << ", Energy:" << Energy.at(i) << "\n";
   }
 }
