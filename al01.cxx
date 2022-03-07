@@ -22,6 +22,7 @@ Double_t GetPara(TString inputfilename) {
   Double_t p1 = f->GetParameter(1);
   cout<<p1<<endl;
   TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
+  Hist01->GetYaxis()->SetRangeUser(0,1200);
   Hist01->Draw();
   inputfilename.ReplaceAll("root","png");
   TString figname = Form("data/fig/%s",inputfilename.Data());
