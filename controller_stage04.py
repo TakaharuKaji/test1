@@ -34,29 +34,4 @@ for i in range (1,n):
 os.chdir("{}".format(test1)) #初めのディレクトリに移動
 
 ##githubにいれるまでもforにくみこんでいいかも
-#終了 （編集済み） 
-
-"""
-os.system("{} -o".format(stage)) #原点に戻す
-time.sleep(2)#一時停止
-os.system("{0} -ml {1}".format(stage,init)) #初期位置にいく
-os.system("mkdir -p {}/data/dir1".format(contr)) #保存するディレクトリを作る
-"""
-os.chdir("{}".format(contr))
-
-for i in range (1,n):
-    os.system('./Controller.rb  192.168.10.102 -e "statusHV ; increaseHV {}"'.format(HV))
-   # os.system('./Controller.rb  192.168.10.102 -e "increaseHV {} ".format(HV)#')
-
-    os.system("quit") #controllerから抜ける
-    """
-
-    os.system("read N sokutei_str(i)" ) #測定
-    os.system("quit") #controllerから抜ける
-
-    os.system("cd data") #contorollerからdataに移動
-    os.system("mv sokutei_str(i).root dir1") #rootファイルを保存ディレクトリに移動
-    os.system("cd ..") #dataからcontorollerに移動
-    os.system("./stage.py -ml m") #移動
-#終了
-"""
+#終了 （編集済み）
