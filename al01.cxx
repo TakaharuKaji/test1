@@ -38,18 +38,25 @@ Double_t EnergyPhoton(Int_t NumP){
 }
 
 void al01(){
-  gROOT->SetBatch(1);
-  Int_t N = 9;
+  //gROOT->SetBatch(1);
+  Int_t N =12 ;
   vector<Double_t> v(N);
   vector<Double_t> Num(N);
   vector<Double_t> Energy(N);
+  vector<Double_t> x(N);
 
   for (Int_t i = 1; i <= N; i++){
-    TString filename = Form("data/ta0%d.root",i);
+    TString filename = Form("data/sokuteitest%d.root",i+23);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
     Energy.at(i-1) = EnergyPhoton(v.at(i-1));
+    x.at(i-1) = i;
+
   }
+
+  TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
+  tgl->SetMarkerStyle(8);
+  tgl->Draw("AP");
 
   for (int i = 0; i < v.size(); i++){
       std::cout << "Vadc:"<< v.at(i) << ", Num:" << Num.at(i) << ", Energy:" << Energy.at(i) << "\n";
