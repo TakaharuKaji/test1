@@ -49,9 +49,13 @@ void al01(){
     TString filename = Form("data/sokuteitest%d.root",i+23);
     v.at(i-1) = GetPara(filename);
     Num.at(i-1) = NumPhoton(v.at(i-1));
+<<<<<<< HEAD
     Energy.at(i-1) = EnergyPhoton(v.at(i-1));
     x.at(i-1) = i;
 
+=======
+    Energy.at(i-1) = EnergyPhoton(Num.at(i-1));
+>>>>>>> 105275303e66d98d5f2e45fee6bf58eaf0c4e2e1
   }
 
   TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
