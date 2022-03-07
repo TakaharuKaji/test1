@@ -8,7 +8,7 @@ def check_makedirs(path):
     if not os.path.isdir(path):
         os.system("mkdir -p {}".format(dir))
     else:
-        print("!! dir already exsists !!")#同名のディレクトリを作成しようとしました
+        print("!! dir already exists !!")#同名のディレクトリを作成しようとしました
         sys.exit()
 check_makedirs(dir)
 print(dir)
