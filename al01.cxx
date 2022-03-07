@@ -18,11 +18,12 @@ Double_t GetPara(TString inputfilename) {
 
   //TF1 *f1 = new TF1("f1", "[0] + [1] * x",min, max);
   TF1 *f = new TF1("name","gaus",0,3000);
-  Hist01->Fit("name","","",850,1500);
+  Hist01->Fit("name","","",842,4000); //842->一番0点に近づいた画像から判断
   Double_t p1 = f->GetParameter(1);
   cout<<p1<<endl;
   TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
   Hist01->GetYaxis()->SetRangeUser(0,1200);
+  Hist01->GetXaxis()->SetRangeUser(500,3500);
   Hist01->Draw();
   inputfilename.ReplaceAll("root","png");
   TString figname = Form("data/fig/%s",inputfilename.Data());
@@ -39,7 +40,7 @@ Double_t NumPhoton(Double_t adc){
 
 Double_t EnergyPhoton(Int_t NumP){
   Double_t h = 6.626e-34; //プランク定数
-  Double_t nu = 600.0e+12; //使用した緑色LEDの振動数
+  Double_t nu = 520.0e+12; //使用した緑色LEDの振動数
   Double_t Energy = h * nu * NumP; //光子一つのエネルギーに個数を乗じる
   return Energy;
 }
@@ -61,7 +62,7 @@ void al01(){
 
   }
 
-  TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
+  TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(Energy.at(0)));
   tgl->SetMarkerStyle(8);
   tgl->Draw("AP");
 

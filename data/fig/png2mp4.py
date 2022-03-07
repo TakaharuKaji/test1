@@ -9,8 +9,8 @@ save = cv2.VideoWriter(str + '.mp4',fourcc,1.0,size)#動画を保存する形を
 print("保存中...")
 
 #0フォルダ
-pic_data=glob.glob(str + "*.png")#0フォルダだけ取り出す
-for i in range(len(pic_data)):#178回繰り返す
+pic_data=glob.glob(str + "*.png")#取り出す
+for i in range(len(pic_data)):#n回繰り返す
     img=pic_data[i]
     img=cv2.imread(img)#画像を読み込む
     img=cv2.resize(img,(640,480))#上でサイズを指定していますが、念のため
