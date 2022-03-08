@@ -12,14 +12,20 @@ os.makedirs("fig", exist_ok=True)
 size=(640,480)#サイズ指定
 fourcc = cv2.VideoWriter_fourcc('m','p','4','v')#保存形式
 str = "sokutei_"
-save = cv2.VideoWriter(str + '.mp4',fourcc,5.0,size)#動画を保存する形を作成
+save = cv2.VideoWriter(str + '.mp4',fourcc,10.0,size)#動画を保存する形を作成
 
 print("保存中...")
 
 #0フォルダ
 
-pic_data=glob.glob(str + "*.png")#取り出す
+pic_data0=glob.glob(str + "*.png")#取り出す
+pic_data = []
+for i in range(len(pic_data0)):
+    file = "sokutei_%d.png" % i
+    if(os.path.isfile(file)):
+        pic_data.append(file)
 print(pic_data)
+
 for i in range(len(pic_data)):#n回繰り返す
     img=pic_data[i]
     img=cv2.imread(img)#画像を読み込む
@@ -30,6 +36,6 @@ print("保存しました")
 
 save.release() # ファイルを閉じる
 
-#print(list_png)
-#for i in range(len(list_png)):
-    #shutil.move(list_png[i], "fig/%s" % list_png[i])
+#print(pic_data)
+for i in range(len(pic_data)):
+    shutil.move(pic_data[i], "fig/%s" % pic_data[i])
