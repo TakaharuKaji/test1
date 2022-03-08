@@ -1,5 +1,7 @@
 import cv2
 import glob
+import shutil
+import os
 
 size=(640,480)#サイズ指定
 fourcc = cv2.VideoWriter_fourcc('m','p','4','v')#保存形式
@@ -19,3 +21,8 @@ print(len(pic_data))
 print("保存しました")
 
 save.release() # ファイルを閉じる
+
+print("測定データフォルダ:")
+new_dir = input()
+print(new_dir)
+os.makedirs("%s" % new_dir, exist_ok=True)
