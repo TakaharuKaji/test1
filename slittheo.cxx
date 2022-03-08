@@ -17,7 +17,7 @@ void slittheo(){
         Double_t x = -10 + 2*i*0.0001;cd ..
         Double_t deriv = theo->Derivative(x);
         if(-0.00002 < deriv && deriv < 0.00002){
-            cout << x << " " << deriv << endl;
+            cout << x << " " << deriv << endl;  //微分係数が十分小さい時の値を表示
         } 
     }
 
