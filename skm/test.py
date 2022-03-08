@@ -2,7 +2,7 @@ import os
 import time
 import sys
 
-dir = "test_dir2"
+dir = "./data/test_dir3"
 
 def check_makedirs(path):
     if not os.path.isdir(path):
