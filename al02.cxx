@@ -50,14 +50,22 @@ Double_t EnergyPhoton(Int_t NumP){
 
 void al02(){
   //gROOT->SetBatch(1);
-  Int_t N =20 ;
+<<<<<<< HEAD
+  Int_t N =20 ; //測定データ数
+  Double_t start_pos = 58.16;//スタート位置
+  Int_t step = 2;//刻み幅
+=======
+  Int_t N =40 ; //測定データ数
+  Double_t start_pos = 60.0;//スタート位置
+  Double_t step = 0.5;//刻み幅
+>>>>>>> 5c016e6701666063fcd05a01e0ae1908c48090be
   vector<Double_t> v={};
   vector<Double_t> Num={};
   vector<Double_t> Energy={};
   vector<Double_t> x={};
 
   for (Int_t i = 1; i <= N; i++){
-    TString filename = Form("data/sokutei_2/sokutei_%d.root",i);
+    TString filename = Form("data/sokutei_5/sokutei_%d.root",i);
     Double_t para = GetPara(filename);
     if (para > 0){
       v.push_back(para);
@@ -65,7 +73,7 @@ void al02(){
       Num.push_back(NumPhoton(v.at(vlength-1)));
       Energy.push_back(EnergyPhoton(v.at(vlength-1)));
     }
-    x.push_back(58.16 +(i-1)*2);
+    x.push_back(start_pos +(i-1)*step);
   }
 
   TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
