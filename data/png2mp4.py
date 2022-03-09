@@ -19,9 +19,10 @@ print("保存中...")
 #0フォルダ
 
 pic_data0=glob.glob(str + "*.png")#取り出す
+print(pic_data0)
 pic_data = []
 for i in range(len(pic_data0)):
-    file = "sokutei_%d_Num.png" % i
+    file = "sokutei_%d.png" % i
     if(os.path.isfile(file)):
         pic_data.append(file)
 print(pic_data)

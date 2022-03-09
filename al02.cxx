@@ -50,7 +50,7 @@ Double_t EnergyPhoton(Int_t NumP){
 
 void al02(){
   //gROOT->SetBatch(1);
-  Int_t N =2100 ; //測定データ数
+  Int_t N =500 ; //測定データ数
   Double_t start_pos = 30.0;//スタート位置
   Double_t step = 0.04;//刻み幅
   vector<Double_t> v={};
