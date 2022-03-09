@@ -1,3 +1,18 @@
+
+Double_t NumPhoton(Double_t adc){
+  Double_t a = 0.0129; //エクセルで計算
+  Double_t b = -10.57; //エクセルで計算
+  Int_t NumP = (a * adc) + b; //adcの値を光子の数に変換
+  return NumP;
+}
+
+Double_t EnergyPhoton(Int_t NumP){
+  Double_t h = 6.626e-34; //プランク定数
+  Double_t nu = 520.0e+12; //使用した緑色LEDの振動数
+  Double_t Energy = h * nu * NumP; //光子一つのエネルギーに個数を乗じる
+  return Energy;
+}
+
 Double_t GetPara(TString inputfilename) {
   TFile *file = new TFile(inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
@@ -14,9 +29,11 @@ Double_t GetPara(TString inputfilename) {
   Double_t sum = 0;
   for (Int_t ientry = 0; ientry < N; ientry++){
     tree->GetEntry(ientry);
-    Hist01->Fill(VadcHigh[44]);
+    Double_t Num = NumPhoton(VadcHigh[44]);
+    Double_t Ene = EnergyPhoton(Num);
+    Hist01->Fill(Num);
     if (VadcHigh[44]>840) {
-      sum += VadcHigh[44];
+      sum += Num;
       count += 1;
     }
     //cout<<ientry<<"  "<<VadcHigh[44]<<endl;
@@ -24,31 +41,17 @@ Double_t GetPara(TString inputfilename) {
   Double_t Ave = sum/count;
   cout<<Ave<<endl;
 
-  TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
+  TCanvas *cl = new TCanvas("c1", "c1", 800, 600);
   Hist01->GetYaxis()->SetRangeUser(0,1200);
   Hist01->GetXaxis()->SetRangeUser(500,3500);
   Hist01->Draw();
-  inputfilename.ReplaceAll("root","png");
+  inputfilename.ReplaceAll(".root","_Num.png");
   TString figname = Form("%s",inputfilename.Data());
   cl -> SaveAs(figname);
   return Ave;
 }
 
-Double_t NumPhoton(Double_t adc){
-  Double_t a = 0.0129; //エクセルで計算
-  Double_t b = -10.57; //エクセルで計算
-  Int_t NumP = (a * adc) + b; //adcの値を光子の数に変換
-  return NumP;
-}
-
-Double_t EnergyPhoton(Int_t NumP){
-  Double_t h = 6.626e-34; //プランク定数
-  Double_t nu = 520.0e+12; //使用した緑色LEDの振動数
-  Double_t Energy = h * nu * NumP; //光子一つのエネルギーに個数を乗じる
-  return Energy;
-}
-
-void al02(){
+void al03(){
   //gROOT->SetBatch(1);
   Int_t N =20 ; //測定データ数
   Double_t start_pos = 60.0;//スタート位置
