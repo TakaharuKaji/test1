@@ -4,24 +4,34 @@ import os
 import time
 import sys
 
-n = 120 #測定回数
+n = 200 #測定回数
 m = 100 #一回の移動で動かす距離1mm
-init = 34000 #初期位置
+init = 29000 #初期位置
 HV = 53.5
 N = 10000
 stage = "/home/sc2021/workdir/controller_20170425/stage.py"
 contr = "/home/sc2021/workdir/controller_20170425"
 data = "/home/sc2021/workdir/controller_20170425/data"
-dir = "/home/sc2021/workdir/controller_20170425/data/sokutei_19" #保存ディレクトリの指定(測定1回ごとにかえる)
+dir = "/home/sc2021/workdir/controller_20170425/data/sokuteitest_6" #保存ディレクトリの指定(測定1回ごとにかえる)
 test1 = "/home/sc2021/workdir/test1"
 
-def check_makedirs(path):
+def check_makedirs(path): #データ保存で上書きしないように確認
     if not os.path.isdir(path):
         os.system("mkdir -p {}".format(path))
     else:
         print("!! dir already exists !!") #同名のディレクトリを作成しようとしました
         sys.exit()
 
+def makeCSV(csvname): #csvを作成する
+    if not os.path.isfile(csvname):
+        f=open(csvname, "w")
+    else:
+        print("%s already exists" % csvname)
+        sys.exit()
+
+def writeCSV(csvname,filename,HV,point): #CSVに測定情報を書き出す
+    with open(csvname, mode='a')
+    f.write("%s,%f,%f\n" % (filename, HV, point))
 check_makedirs(dir) #保存するディレクトリを作る
 
 #os.system("mkdir -p {}".format(dir))
