@@ -4,15 +4,15 @@ import os
 import time
 import sys
 
-n = 120 #測定回数
-m = 100 #一回の移動で動かす距離1mm
+n = 60 #測定回数
+m = 200 #一回の移動で動かす距離1mm
 init = 34000 #初期位置
 HV = 53.5
-N = 10000
+N = 100000
 stage = "/home/sc2021/workdir/controller_20170425/stage.py"
 contr = "/home/sc2021/workdir/controller_20170425"
 data = "/home/sc2021/workdir/controller_20170425/data"
-dir = "/home/sc2021/workdir/controller_20170425/data/sokutei_19" #保存ディレクトリの指定(測定1回ごとにかえる)
+dir = "/home/sc2021/workdir/controller_20170425/data/sokutei_20" #保存ディレクトリの指定(測定1回ごとにかえる)
 test1 = "/home/sc2021/workdir/test1"
 
 def check_makedirs(path):

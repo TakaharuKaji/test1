@@ -2,8 +2,8 @@ import os
 import time
 import sys
 
-n = 120 #測定回数
-m = 100 #一回の移動で動かす距離1mm
+n = 60 #測定回数
+m = 200 #一回の移動で動かす距離1mm
 init = 45000 #初期位置
 HV = 53.5
 N = 10000
