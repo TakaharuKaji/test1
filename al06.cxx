@@ -1,3 +1,5 @@
+//sokutei_20のプロット
+
 Double_t GetPara(TString inputfilename) {
   TFile *file = new TFile(inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
@@ -22,15 +24,9 @@ Double_t GetPara(TString inputfilename) {
     //cout<<ientry<<"  "<<VadcHigh[44]<<endl;
   }
   Double_t Ave = sum/count;
-  cout<<Ave<<endl;
+  //cout<<Ave<<endl;
 
-  TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
-  Hist01->GetYaxis()->SetRangeUser(0,30000);
-  Hist01->GetXaxis()->SetRangeUser(700,1000);
-  Hist01->Draw();
-  inputfilename.ReplaceAll("root","png");
-  TString figname = Form("%s",inputfilename.Data());
-  cl -> SaveAs(figname);
+  
   return Ave;
 }
 
@@ -48,7 +44,7 @@ Double_t EnergyPhoton(Int_t NumP){
   return Energy;
 }
 
-void al02(){
+void al06(){
   //gROOT->SetBatch(1);
   Int_t N =60 ; //測定データ数
   Double_t start_pos = 68.0;//スタート位置
@@ -72,9 +68,7 @@ void al02(){
 
   TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
   tgl->SetMarkerStyle(8);
+  tgl->SetTitle(" ;[mm];ADC");  //title
   tgl->Draw("AP");
 
-  for (int i = 0; i < v.size(); i++){
-      std::cout << "Vadc:"<< v.at(i) << ", Num:" << Num.at(i) << ", Energy:" << Energy.at(i) << "\n";
-  }
 }
