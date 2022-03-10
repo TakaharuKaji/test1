@@ -53,16 +53,16 @@ Double_t GetPara(TString inputfilename) {
 
 void al03(){
   //gROOT->SetBatch(1);
-  Int_t N =20 ; //測定データ数
-  Double_t start_pos = 60.0;//スタート位置
-  Double_t step = 1.2;//刻み幅
+  Int_t N =120 ; //測定データ数
+  Double_t start_pos = 68.0;//スタート位置
+  Double_t step = 0.2;//刻み幅
   vector<Double_t> v={};
   vector<Double_t> Num={};
   vector<Double_t> Energy={};
   vector<Double_t> x={};
 
   for (Int_t i = 1; i <= N; i++){
-    TString filename = Form("data/sokutei_16/sokutei_%d.root",i);
+    TString filename = Form("data/sokutei_19/sokutei_%d.root",i);
     Double_t para = GetPara(filename);
     if (para > 0){
       v.push_back(para);
