@@ -62,10 +62,10 @@ void al02(){
   for (Int_t i = 1; i <= N; i++){
     TString filename = Form("data/sokutei_20/sokutei_%d.root",i);
     Double_t xi = start_pos +(i-1)*step;
-    x.push_back(xi);
     Double_t para = GetPara(filename, xi);
     if (para > 0){
       v.push_back(para);
+      x.push_back(xi);
       Int_t vlength = v.size();
       Num.push_back(NumPhoton(v.at(vlength-1)));
       Energy.push_back(EnergyPhoton(v.at(vlength-1)));
