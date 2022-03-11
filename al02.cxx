@@ -1,4 +1,4 @@
-Double_t GetPara(TString inputfilename) {
+Double_t GetPara(TString inputfilename, Double_t x) {
   TFile *file = new TFile(inputfilename, "read");
   TTree *tree = (TTree*)file->Get("tree");
   if (tree==nullptr) {
@@ -6,8 +6,9 @@ Double_t GetPara(TString inputfilename) {
   }
   int VadcHigh[64];
   tree->SetBranchAddress("VadcHigh", &VadcHigh);
-
-  TH1D* Hist01 = new TH1D("h1","h1",1000,0,4096);//ルート上の名前,タイトル,ビンの数,下限,上限//
+  TString title = Form("x= %5.2f mm",x);
+  cout << title << endl;
+  TH1D* Hist01 = new TH1D("h1",title,1000,0,4096);//ルート上の名前,タイトル,ビンの数,下限,上限//
 
   const Int_t N = tree->GetEntries();
   Int_t count = 0;
@@ -15,18 +16,18 @@ Double_t GetPara(TString inputfilename) {
   for (Int_t ientry = 0; ientry < N; ientry++){
     tree->GetEntry(ientry);
     Hist01->Fill(VadcHigh[44]);
-    if (VadcHigh[44]>840) {
+    if (VadcHigh[44]>820) {
       sum += VadcHigh[44];
       count += 1;
     }
     //cout<<ientry<<"  "<<VadcHigh[44]<<endl;
   }
   Double_t Ave = sum/count;
-  cout<<Ave<<endl;
+  //cout<<Ave<<endl;
 
   TCanvas *cl = new TCanvas("c1", "c1", 400, 300);
-  Hist01->GetYaxis()->SetRangeUser(0,30000);
-  Hist01->GetXaxis()->SetRangeUser(700,1000);
+  Hist01->GetYaxis()->SetRangeUser(0,25000);
+  Hist01->GetXaxis()->SetRangeUser(500,1300);
   Hist01->Draw();
   inputfilename.ReplaceAll("root","png");
   TString figname = Form("%s",inputfilename.Data());
@@ -60,14 +61,15 @@ void al02(){
 
   for (Int_t i = 1; i <= N; i++){
     TString filename = Form("data/sokutei_20/sokutei_%d.root",i);
-    Double_t para = GetPara(filename);
+    Double_t xi = start_pos +(i-1)*step;
+    x.push_back(xi);
+    Double_t para = GetPara(filename, xi);
     if (para > 0){
       v.push_back(para);
       Int_t vlength = v.size();
       Num.push_back(NumPhoton(v.at(vlength-1)));
       Energy.push_back(EnergyPhoton(v.at(vlength-1)));
     }
-    x.push_back(start_pos +(i-1)*step);
   }
 
   TGraph *tgl = new TGraph(v.size(), &(x.at(0)), &(v.at(0)));
